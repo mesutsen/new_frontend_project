@@ -346,12 +346,141 @@ export default function PolicyTypesPage() {
                                 {isEdit ? t('editDescription') || 'Poliçe türü bilgilerini güncelleyin' : t('createDescription') || 'Yeni bir poliçe türü ekleyin'}
                             </DialogDescription>
                         </DialogHeader>
-                        <Form {...(isEdit ? updateForm : createForm)}>
-                            <form
-                                onSubmit={(isEdit ? updateForm : createForm).handleSubmit(isEdit ? onSubmitUpdate : onSubmitCreate)}
-                                className="space-y-4"
-                            >
-                                {!isEdit && (
+                        {isEdit ? (
+                            <Form {...updateForm}>
+                                <form
+                                    onSubmit={updateForm.handleSubmit(onSubmitUpdate)}
+                                    className="space-y-4"
+                                >
+                                    <FormField
+                                        control={updateForm.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Ad *</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={updateForm.control}
+                                        name="description"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Açıklama</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <FormField
+                                            control={updateForm.control}
+                                            name="defaultDealerCommissionRate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Bayi Komisyon Oranı</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.01"
+                                                            min="0"
+                                                            max="1"
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>Örn: 0.10 = %10</FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={updateForm.control}
+                                            name="defaultObserverCommissionRate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Gözlemci Komisyon Oranı</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.01"
+                                                            min="0"
+                                                            max="1"
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>Örn: 0.05 = %5</FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={updateForm.control}
+                                            name="defaultAdminCommissionRate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Admin Komisyon Oranı</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.01"
+                                                            min="0"
+                                                            max="1"
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>Örn: 0.03 = %3</FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                    <FormField
+                                        control={updateForm.control}
+                                        name="isActive"
+                                        render={({ field }) => (
+                                            <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                                                <div className="space-y-0.5">
+                                                    <FormLabel>Aktif</FormLabel>
+                                                    <FormDescription>Poliçe türünün aktif olup olmadığını belirler</FormDescription>
+                                                </div>
+                                                <FormControl>
+                                                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <div className="flex justify-end gap-2">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setDialogOpen(false)}
+                                        >
+                                            İptal
+                                        </Button>
+                                        <Button type="submit" disabled={updateMutation.isPending}>
+                                            {updateMutation.isPending && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Güncelle
+                                        </Button>
+                                    </div>
+                                </form>
+                            </Form>
+                        ) : (
+                            <Form {...createForm}>
+                                <form
+                                    onSubmit={createForm.handleSubmit(onSubmitCreate)}
+                                    className="space-y-4"
+                                >
                                     <FormField
                                         control={createForm.control}
                                         name="code"
@@ -366,130 +495,130 @@ export default function PolicyTypesPage() {
                                             </FormItem>
                                         )}
                                     />
-                                )}
-                                <FormField
-                                    control={(isEdit ? updateForm : createForm).control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Ad *</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={(isEdit ? updateForm : createForm).control}
-                                    name="description"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Açıklama</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <div className="grid grid-cols-3 gap-4">
                                     <FormField
-                                        control={(isEdit ? updateForm : createForm).control}
-                                        name="defaultDealerCommissionRate"
+                                        control={createForm.control}
+                                        name="name"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Bayi Komisyon Oranı</FormLabel>
+                                                <FormLabel>Ad *</FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        type="number"
-                                                        step="0.01"
-                                                        min="0"
-                                                        max="1"
-                                                        {...field}
-                                                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                                                    />
+                                                    <Input {...field} />
                                                 </FormControl>
-                                                <FormDescription>Örn: 0.10 = %10</FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
                                     <FormField
-                                        control={(isEdit ? updateForm : createForm).control}
-                                        name="defaultObserverCommissionRate"
+                                        control={createForm.control}
+                                        name="description"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Gözlemci Komisyon Oranı</FormLabel>
+                                                <FormLabel>Açıklama</FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        type="number"
-                                                        step="0.01"
-                                                        min="0"
-                                                        max="1"
-                                                        {...field}
-                                                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                                                    />
+                                                    <Input {...field} />
                                                 </FormControl>
-                                                <FormDescription>Örn: 0.05 = %5</FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <FormField
+                                            control={createForm.control}
+                                            name="defaultDealerCommissionRate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Bayi Komisyon Oranı</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.01"
+                                                            min="0"
+                                                            max="1"
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>Örn: 0.10 = %10</FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={createForm.control}
+                                            name="defaultObserverCommissionRate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Gözlemci Komisyon Oranı</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.01"
+                                                            min="0"
+                                                            max="1"
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>Örn: 0.05 = %5</FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={createForm.control}
+                                            name="defaultAdminCommissionRate"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Admin Komisyon Oranı</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            step="0.01"
+                                                            min="0"
+                                                            max="1"
+                                                            {...field}
+                                                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>Örn: 0.03 = %3</FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
                                     <FormField
-                                        control={(isEdit ? updateForm : createForm).control}
-                                        name="defaultAdminCommissionRate"
+                                        control={createForm.control}
+                                        name="isActive"
                                         render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Admin Komisyon Oranı</FormLabel>
+                                            <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                                                <div className="space-y-0.5">
+                                                    <FormLabel>Aktif</FormLabel>
+                                                    <FormDescription>Poliçe türünün aktif olup olmadığını belirler</FormDescription>
+                                                </div>
                                                 <FormControl>
-                                                    <Input
-                                                        type="number"
-                                                        step="0.01"
-                                                        min="0"
-                                                        max="1"
-                                                        {...field}
-                                                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                                                    />
+                                                    <Switch checked={field.value} onCheckedChange={field.onChange} />
                                                 </FormControl>
-                                                <FormDescription>Örn: 0.03 = %3</FormDescription>
-                                                <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                </div>
-                                <FormField
-                                    control={(isEdit ? updateForm : createForm).control}
-                                    name="isActive"
-                                    render={({ field }) => (
-                                        <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                                            <div className="space-y-0.5">
-                                                <FormLabel>Aktif</FormLabel>
-                                                <FormDescription>Poliçe türünün aktif olup olmadığını belirler</FormDescription>
-                                            </div>
-                                            <FormControl>
-                                                <Switch checked={field.value} onCheckedChange={field.onChange} />
-                                            </FormControl>
-                                        </FormItem>
-                                    )}
-                                />
-                                <div className="flex justify-end gap-2">
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        onClick={() => setDialogOpen(false)}
-                                    >
-                                        İptal
-                                    </Button>
-                                    <Button type="submit" disabled={(isEdit ? updateMutation : createMutation).isPending}>
-                                        {(isEdit ? updateMutation : createMutation).isPending && (
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        )}
-                                        {isEdit ? 'Güncelle' : 'Oluştur'}
-                                    </Button>
-                                </div>
-                            </form>
-                        </Form>
+                                    <div className="flex justify-end gap-2">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setDialogOpen(false)}
+                                        >
+                                            İptal
+                                        </Button>
+                                        <Button type="submit" disabled={createMutation.isPending}>
+                                            {createMutation.isPending && (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
+                                            Oluştur
+                                        </Button>
+                                    </div>
+                                </form>
+                            </Form>
+                        )}
                     </DialogContent>
                 </Dialog>
 
