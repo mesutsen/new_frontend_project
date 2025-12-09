@@ -270,7 +270,7 @@ export default function VehicleDetailPage() {
                             // Backend URL'ini tam URL'e çevir
                             const imageUrl = vehicle.registrationImageUrl.startsWith('http') 
                                 ? vehicle.registrationImageUrl 
-                                : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:51743'}${vehicle.registrationImageUrl}`;
+                                : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://5.245.250.23:5000'}${vehicle.registrationImageUrl}`;
                             
                             return (
                                 <div className="space-y-4">
