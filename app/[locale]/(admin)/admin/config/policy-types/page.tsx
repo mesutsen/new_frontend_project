@@ -309,10 +309,10 @@ export default function PolicyTypesPage() {
                 </div>
 
                 {/* Pagination */}
-                {data && data.total > 0 && (
+                {data && data.totalCount > 0 && (
                     <div className="flex items-center justify-between">
                         <div className="text-sm text-muted-foreground">
-                            Toplam {data.total} kayıt, Sayfa {page} / {Math.ceil(data.total / 20)}
+                            Toplam {data.totalCount} kayıt, Sayfa {page} / {Math.ceil(data.totalCount / 20)}
                         </div>
                         <div className="flex gap-2">
                             <Button
@@ -327,7 +327,7 @@ export default function PolicyTypesPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setPage((p) => p + 1)}
-                                disabled={page >= Math.ceil(data.total / 20)}
+                                disabled={page >= Math.ceil(data.totalCount / 20)}
                             >
                                 <ChevronRight className="h-4 w-4" />
                             </Button>

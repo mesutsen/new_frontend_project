@@ -1,4 +1,3 @@
-import axios from '@/lib/axios';
 import { api } from '@/lib/axios';
 import { PagedResponse } from './common';
 

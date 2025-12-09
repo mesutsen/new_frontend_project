@@ -201,7 +201,7 @@ export default function PriceListsPage() {
                                     </TableCell>
                                 </TableRow>
                             ) : (
-                                data?.items.map((priceList) => (
+                                data?.items.map((priceList: PriceList) => (
                                     <TableRow key={priceList.id}>
                                         <TableCell className="font-medium">{priceList.name}</TableCell>
                                         <TableCell>{priceList.policyTypeName}</TableCell>
@@ -241,10 +241,10 @@ export default function PriceListsPage() {
                 </div>
 
                 {/* Pagination */}
-                {data && data.total > 0 && (
+                {data && data.totalCount > 0 && (
                     <div className="flex items-center justify-between">
                         <div className="text-sm text-muted-foreground">
-                            Toplam {data.total} kayıt, Sayfa {page} / {Math.ceil(data.total / 20)}
+                            Toplam {data.totalCount} kayıt, Sayfa {page} / {Math.ceil(data.totalCount / 20)}
                         </div>
                         <div className="flex gap-2">
                             <Button
@@ -259,7 +259,7 @@ export default function PriceListsPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setPage((p) => p + 1)}
-                                disabled={page >= Math.ceil(data.total / 20)}
+                                disabled={page >= Math.ceil(data.totalCount / 20)}
                             >
                                 <ChevronRight className="h-4 w-4" />
                             </Button>

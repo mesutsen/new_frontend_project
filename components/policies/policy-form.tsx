@@ -789,8 +789,7 @@ export function PolicyForm({ dealerId: propDealerId, policy, onSuccess, onCancel
                                     <Input
                                         type="number"
                                         step="0.01"
-                                        min={priceList?.minPrice || 0}
-                                        max={priceList?.maxPrice}
+                                        min={0}
                                         placeholder={calculatedPrice ? calculatedPrice.total.toFixed(2) : (t('formPremiumPlaceholder') || 'Otomatik hesaplanır')}
                                         {...field}
                                         value={field.value ?? ''}
@@ -805,12 +804,6 @@ export function PolicyForm({ dealerId: propDealerId, policy, onSuccess, onCancel
                                 <FormDescription>
                                     {calculatedPrice
                                         ? `${t('calculatedPrice') || 'Hesaplanan fiyat'}: ${calculatedPrice.total.toFixed(2)} ${calculatedPrice.currencySymbol || calculatedPrice.currency || 'EUR'}`
-                                        : priceList?.minPrice && priceList?.maxPrice
-                                        ? `${t('formPremiumRange') || 'Fiyat aralığı'}: ${priceList.minPrice.toFixed(2)} - ${priceList.maxPrice.toFixed(2)} TRY`
-                                        : priceList?.minPrice
-                                        ? `${t('formPremiumMin') || 'Minimum fiyat'}: ${priceList.minPrice.toFixed(2)} TRY`
-                                        : priceList?.maxPrice
-                                        ? `${t('formPremiumMax') || 'Maksimum fiyat'}: ${priceList.maxPrice.toFixed(2)} TRY`
                                         : t('formPremiumDescription') || 'Boş bırakılırsa otomatik hesaplanır'}
                                 </FormDescription>
                                 <FormMessage />

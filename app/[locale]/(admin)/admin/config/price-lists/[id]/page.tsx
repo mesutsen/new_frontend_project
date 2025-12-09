@@ -31,29 +31,29 @@ const updatePriceListSchema = z.object({
     startDate: z.string().min(1, 'Başlangıç tarihi gereklidir'),
     endDate: z.string().min(1, 'Bitiş tarihi gereklidir'),
     // 1 Günlük
-    price1Day: z.number().optional().nullable(),
-    price1DayMin: z.number().optional().nullable(),
-    price1DayMax: z.number().optional().nullable(),
+    price1Day: z.number().optional(),
+    price1DayMin: z.number().optional(),
+    price1DayMax: z.number().optional(),
     // 15 Günlük
-    price15Days: z.number().optional().nullable(),
-    price15DaysMin: z.number().optional().nullable(),
-    price15DaysMax: z.number().optional().nullable(),
+    price15Days: z.number().optional(),
+    price15DaysMin: z.number().optional(),
+    price15DaysMax: z.number().optional(),
     // 30 Günlük
-    price30Days: z.number().optional().nullable(),
-    price30DaysMin: z.number().optional().nullable(),
-    price30DaysMax: z.number().optional().nullable(),
+    price30Days: z.number().optional(),
+    price30DaysMin: z.number().optional(),
+    price30DaysMax: z.number().optional(),
     // 90 Günlük
-    price90Days: z.number().optional().nullable(),
-    price90DaysMin: z.number().optional().nullable(),
-    price90DaysMax: z.number().optional().nullable(),
+    price90Days: z.number().optional(),
+    price90DaysMin: z.number().optional(),
+    price90DaysMax: z.number().optional(),
     // 365 Günlük
-    price365Days: z.number().optional().nullable(),
-    price365DaysMin: z.number().optional().nullable(),
-    price365DaysMax: z.number().optional().nullable(),
+    price365Days: z.number().optional(),
+    price365DaysMin: z.number().optional(),
+    price365DaysMax: z.number().optional(),
     taxRate: z.number().min(0).max(1),
-    dealerCommissionRate: z.number().min(0).max(1).optional().nullable(),
-    observerCommissionRate: z.number().min(0).max(1).optional().nullable(),
-    adminCommissionRate: z.number().min(0).max(1).optional().nullable(),
+    dealerCommissionRate: z.number().min(0).max(1).optional(),
+    observerCommissionRate: z.number().min(0).max(1).optional(),
+    adminCommissionRate: z.number().min(0).max(1).optional(),
     isActive: z.boolean(),
     priority: z.number().int().min(0),
 }).refine((data) => {
@@ -87,25 +87,25 @@ export default function EditPriceListPage() {
             description: '',
             startDate: '',
             endDate: '',
-            price1Day: null,
-            price1DayMin: null,
-            price1DayMax: null,
-            price15Days: null,
-            price15DaysMin: null,
-            price15DaysMax: null,
-            price30Days: null,
-            price30DaysMin: null,
-            price30DaysMax: null,
-            price90Days: null,
-            price90DaysMin: null,
-            price90DaysMax: null,
-            price365Days: null,
-            price365DaysMin: null,
-            price365DaysMax: null,
+            price1Day: undefined,
+            price1DayMin: undefined,
+            price1DayMax: undefined,
+            price15Days: undefined,
+            price15DaysMin: undefined,
+            price15DaysMax: undefined,
+            price30Days: undefined,
+            price30DaysMin: undefined,
+            price30DaysMax: undefined,
+            price90Days: undefined,
+            price90DaysMin: undefined,
+            price90DaysMax: undefined,
+            price365Days: undefined,
+            price365DaysMin: undefined,
+            price365DaysMax: undefined,
             taxRate: 0.18,
-            dealerCommissionRate: null,
-            observerCommissionRate: null,
-            adminCommissionRate: null,
+            dealerCommissionRate: undefined,
+            observerCommissionRate: undefined,
+            adminCommissionRate: undefined,
             isActive: true,
             priority: 0,
         },
@@ -115,25 +115,25 @@ export default function EditPriceListPage() {
             description: priceList.description || '',
             startDate: priceList.startDate.split('T')[0],
             endDate: priceList.endDate.split('T')[0],
-            price1Day: priceList.price1Day ?? null,
-            price1DayMin: priceList.price1DayMin ?? null,
-            price1DayMax: priceList.price1DayMax ?? null,
-            price15Days: priceList.price15Days ?? null,
-            price15DaysMin: priceList.price15DaysMin ?? null,
-            price15DaysMax: priceList.price15DaysMax ?? null,
-            price30Days: priceList.price30Days ?? null,
-            price30DaysMin: priceList.price30DaysMin ?? null,
-            price30DaysMax: priceList.price30DaysMax ?? null,
-            price90Days: priceList.price90Days ?? null,
-            price90DaysMin: priceList.price90DaysMin ?? null,
-            price90DaysMax: priceList.price90DaysMax ?? null,
-            price365Days: priceList.price365Days ?? null,
-            price365DaysMin: priceList.price365DaysMin ?? null,
-            price365DaysMax: priceList.price365DaysMax ?? null,
+            price1Day: priceList.price1Day,
+            price1DayMin: priceList.price1DayMin,
+            price1DayMax: priceList.price1DayMax,
+            price15Days: priceList.price15Days,
+            price15DaysMin: priceList.price15DaysMin,
+            price15DaysMax: priceList.price15DaysMax,
+            price30Days: priceList.price30Days,
+            price30DaysMin: priceList.price30DaysMin,
+            price30DaysMax: priceList.price30DaysMax,
+            price90Days: priceList.price90Days,
+            price90DaysMin: priceList.price90DaysMin,
+            price90DaysMax: priceList.price90DaysMax,
+            price365Days: priceList.price365Days,
+            price365DaysMin: priceList.price365DaysMin,
+            price365DaysMax: priceList.price365DaysMax,
             taxRate: priceList.taxRate,
-            dealerCommissionRate: priceList.dealerCommissionRate ?? null,
-            observerCommissionRate: priceList.observerCommissionRate ?? null,
-            adminCommissionRate: priceList.adminCommissionRate ?? null,
+            dealerCommissionRate: priceList.dealerCommissionRate,
+            observerCommissionRate: priceList.observerCommissionRate,
+            adminCommissionRate: priceList.adminCommissionRate,
             isActive: priceList.isActive,
             priority: priceList.priority,
         } : undefined,
@@ -286,7 +286,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -306,7 +306,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -326,7 +326,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -353,7 +353,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -373,7 +373,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -393,7 +393,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -420,7 +420,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -440,7 +440,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -460,7 +460,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -487,7 +487,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -507,7 +507,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -527,7 +527,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -554,7 +554,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -574,7 +574,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -594,7 +594,7 @@ export default function EditPriceListPage() {
                                                                 min="0"
                                                                 {...field}
                                                                 value={field.value ?? ''}
-                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                                onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                             />
                                                         </FormControl>
                                                         <FormMessage />
@@ -644,7 +644,7 @@ export default function EditPriceListPage() {
                                                         max="1"
                                                         {...field}
                                                         value={field.value ?? ''}
-                                                        onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                        onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                     />
                                                 </FormControl>
                                                 <FormDescription>Boş bırakılırsa poliçe türündeki varsayılan değer kullanılır</FormDescription>
@@ -666,7 +666,7 @@ export default function EditPriceListPage() {
                                                         max="1"
                                                         {...field}
                                                         value={field.value ?? ''}
-                                                        onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                        onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                     />
                                                 </FormControl>
                                                 <FormDescription>Boş bırakılırsa poliçe türündeki varsayılan değer kullanılır</FormDescription>
@@ -688,7 +688,7 @@ export default function EditPriceListPage() {
                                                         max="1"
                                                         {...field}
                                                         value={field.value ?? ''}
-                                                        onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
+                                                        onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                                                     />
                                                 </FormControl>
                                                 <FormDescription>Boş bırakılırsa poliçe türündeki varsayılan değer kullanılır</FormDescription>
