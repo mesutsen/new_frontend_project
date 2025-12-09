@@ -25,6 +25,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const updatePriceListSchema = z.object({
+    currencyId: z.string().min(1, 'Para birimi gereklidir'),
     name: z.string().min(1, 'Ad gereklidir'),
     description: z.string().optional(),
     startDate: z.string().min(1, 'Başlangıç tarihi gereklidir'),
@@ -81,6 +82,7 @@ export default function EditPriceListPage() {
     const updateForm = useForm<UpdatePriceListRequest>({
         resolver: zodResolver(updatePriceListSchema),
         defaultValues: {
+            currencyId: '',
             name: '',
             description: '',
             startDate: '',
@@ -108,6 +110,7 @@ export default function EditPriceListPage() {
             priority: 0,
         },
         values: priceList ? {
+            currencyId: priceList.currencyId,
             name: priceList.name,
             description: priceList.description || '',
             startDate: priceList.startDate.split('T')[0],
