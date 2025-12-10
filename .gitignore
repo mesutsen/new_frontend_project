@@ -8,6 +8,7 @@ node_modules
 
 # Next.js
 /.next/
+/.next_eski/
 /out/
 next-build.zip
 
